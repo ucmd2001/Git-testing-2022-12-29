@@ -1,0 +1,130 @@
+建立 SSH Key
+
+ssh-keygen -o -t rsa -b 4096 -C "williamlyu@fwp.com.tw"
+
+cat ~/.ssh/id_ed25519.pub
+
+
+
+1.第一次使用
+
+	git init
+
+
+	git add .      
+
+	git commit -m "version 1.0.0"  (-m 是指 message)
+
+
+	git remote add origin git@192.168.14.21:Williamlyu/mbms_sourceco
+
+
+	git push origin master
+
+
+=========================================================================
+
+2.更新過後上傳
+
+	git add .
+
+	git commit -m "version 2.0.0"
+
+	git push origin master
+=========================================================================
+
+add    > 把檔案加到索引區
+
+commit > 把檔案加到暫存區
+
+push   > 把檔案推到遠端倉庫
+
+=========================================================================
+
+想要回復到上一版
+
+=========================================================================
+
+使用注意⚠️：如果修改了內容，執行了git add，但沒有執行git commit 執行 git reset 
+
+	     hard 會刪除了已git add 但未git commit 的修改內容。
+
+=========================================================================
+
+
+1.git log --online -5      看一下線上最新五筆的版本紀錄
+
+2.git log                  看一下現在地端自己在哪一版本
+
+3.git reset --hard HEAD~1  回復到上一次的版本,刪除最新的提交   *備註1 
+  git reset --soft HEAD~1  回復到上一版,保留最新的提交
+
+4.git log                  看一下現在地端自己是不是在正確的版本
+
+5.確認完更新後,完成新更改
+
+6.再次重新 add > commit > push   *備註2 備註3
+  
+
+=========================================================================
+
+備註1:隨時使用git log看一下版本,確認自己是否再正確自己想要的版本,跟最新版本是否要刪除
+備註2:每次push前建議先切到本地master把origin拉下來，再去本地分支做rebase，解conflict，再push出去比較好
+備註3:回復到之前版本,再度執行push,實際上不會真的回到之前的版本,只會回到當初的版本狀態,你的Git Tree 還是繼續往前而非真的回到過去
+
+
+=========================================================================
+
+取消 git reset
+
+=========================================================================
+
+1.git reflog             > 去找最近操作
+
+2.git reset --hard XXXXX > 輸入當初自己操作前的SHA值,重新來過
+
+=========================================================================
+
+
+3.CONFLICT 處理 
+
+
+情境1 : 遠端倉庫 更新,地端倉庫也更新,地端這邊push 不了 (已經做完add commit push )
+
+1.git pull origin master   >  同步更新遠端倉庫
+
+2.開啟vs code 查看衝突內容,選擇衝突內容項目要解決哪一個
+
+3.重新git add > commit > push
+
+
+
+情境2 : 分支更新,遠端Master也更新,我要Merge回Master  > 需要rebase回master最新的狀態 (在master分支上輸入git merge dev 失敗)
+
+1.git switch master / git checkout master > 切換到master
+
+2.git pull  > 更新master分支
+
+3.git switch dev > 切換到dev分支
+
+4.git rebase master > 重新對準master基準
+
+5.解決confilct
+
+6.git rebase --continue > 繼續rebase流程
+
+7.git log > 看一下目前的git log是否為正確,但目前還沒辦法push,因為地端的git log跟遠端的git log不同
+
+  方法1 : git push -f >　強制push (可以在自己分支上面做,但盡量不要在master做)
+
+  方法2 : 依照git 指示做 (建議事項)
+
+  方法3 : 直接刪除你gitlab上的分支 重新上傳一次
+
+  方法4 : 在本地端Merge完之後再推回去 *備註1
+
+8.git push origin master
+
+
+=========================================================================
+*備註1 : 等於是你在地端先做rebase , merge ,把分支接回去master最後之後再把這個master push回去
