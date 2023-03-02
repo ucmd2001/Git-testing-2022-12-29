@@ -1,0 +1,650 @@
+學習路程:
+
+4/18 
+1.編輯unittestforMongodb - 
+	到genrateTags
+2.編輯unittestmain - 
+	到getSearchListData
+3.編輯要知道的事情、想問的問題、學習路程 
+	-要問的事情移動到要知道的事,整理要問的事情、學習路程
+4.學習Flask_Login / logout 方法 
+	> 先定義 user.id > 呼叫login_user(user)>登入
+5.了解WSGI檔功能 WSGI服務器
+6.W3.css 
+	> 見影片-登出控制2:00:00附近
+7.了解datetime.datetime.isoformat用法
+
+4/19
+1.編輯unittestforMongodb - 
+	全部完成
+2.編輯unity test - 
+	到getSearchListData
+3.編輯unittestsubmain -
+	到info() 
+4.了解python基本語法使用方法 -
+	合併字典{**dict,**dict}的方法 >見精通python 字典部分。 
+	round(x,n) >返回浮点数x的四舍五入值至小數點n位。
+	a &= b > a = a & b
+	socket.gethostname() > 可以擷取本機ip位置
+	datetime.datetime.now() > 可以得到現在時間
+5.了解pymongo serverSelectionTimeoutMS，socketTimeoutMS 功能
+	設定多久沒連接到資料庫才會報超時錯誤 如果数据库出现问题，pymongo 默认会等待 20 秒左右才会报连接超时
+	serverSelectionTimeoutMS =5000 > 五秒後報錯
+
+4/20
+1.編輯unittestsubmain -
+	全部完成
+2.了解python基本語法使用方法 -
+	if True 在程式外會先執行
+	if not a in b的概念 > a in b 先執行 not後執行 , 假如 a in b =True > if not a in b就是Flase 會執行Flase語句 
+	其實就等於 if a not in b 哭阿 
+
+4/21
+1.編輯unittestmain - 
+	到 getSearchListData
+2.編輯unittestinfo - 
+	到
+3.了解python基本語法 -
+	mongodb 中 .id 會把 右方的值作為id 賦予前面的變數 Ex: curr_user.id = user["user_id"] 
+	現在curr_user的id就是user["user_id"]
+	了解python物件說明 可以用vars() 語法看到其中的值
+4.了解html基本語法
+	了解http通訊協定 通訊協定://主機名稱/路徑
+	了解Jquery/Javascript基本語法 
+		.data() 可以獲取.data中的資料加到前面指定的變數 Ex:https://www.w3school.com.cn/jquery/data_jquery_data.asp
+		switch  可以獲取變數，當點擊對應case之後，可以swtich到對應設定 Ex:https://www.runoob.com/js/js-switch.html
+		push()  可以把對應資料加到Array最後
+		name="viewport" EX:https://medium.com/frochu/html-meta-viewport-setting-69fbb06ed3d8
+5.了解Bootstrap基本語法
+	navbar-brand    Bootstrap中的 class 通常主要負責導覽列的左上角部分
+	navbar-toggler  Bootstrap中的按鈕 可以變成下拉式選單
+	data-toggle ="collapse"   當畫面縮小時會採取collapse 縮小
+	data-target     當collapse發生時 或取消時 連接的部分(丟進toggler的部分) 
+	collapse navbar-collapse  當collapse要連結的部分 需用id 或是class連結
+	navbar-nav-mr auto       沒有nav的話會變成垂直的 mr-auto 把連結分散到兩側
+	nav-item        縮小時第一層會顯示的東西
+	nav-item dropdown         縮小時 第二層還可以下拉的class name
+	role=button     當摺疊時賦予這個連結button的方式
+	aria-haspopup   表示按鈕將啟動一個視窗
+	aria-expanded   設定為True的話會自動展開下拉選單
+	aria-label	無障礙網站，會自動播報後面內容 "Toggle navigation"
+	&nbsp           可以在畫面上多一格空白
+	{% endif %} {% if level|int >=2 %}  控制使用者權限是否能看到該頁面
+
+4/22
+1.看完Samsung BMS系統介面
+2.去現場實地勘查
+3.了解儲能系統現況、饋線有上限 無法一直加上去
+
+
+4/25
+1.了解網路架構 CSS/SSR
+2.了解反向代理 原理
+3.了解快取原理
+4.了解網路伺服器 Apache大概運作模式
+5.了解靜態網站後端託管網站Netlify 大概運作模式
+6.了解雲端數據/運算原理
+7.了解巨量資料庫 3V管理模型 及如何搜尋 
+8.了解Nginx原理
+
+4/26
+1.編輯unittestmain - 
+	到get_info_equipList 
+2.了解Jquery/Javascript基本語法
+	$(this)     會指到左邊選擇到的物件
+	foreach()   把內容物 equip,index 分別迴圈丟出來 EX:https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+	.val()      取得值
+	modal()	    互動視窗 見https://bootstrap5.hexschool.com/docs/5.0/components/modal/
+	fail()      如果前面fail 會執行這個function 見 https://www.runoob.com/jquery/misc-deferred-fail.html
+3.了解Bootstrap基本語法
+	set i 把後面的 data-value = i 丟到前面class裡
+	mx    用法m = margin x = 水平左右x位置 見https://bootstrap5.hexschool.com/docs/5.0/utilities/spacing/
+4.了解Weasyprint功能 
+5.了解Beautifulsoup4其他功能
+6.了解pyhton基本語法
+	dir()   可以直接找到該模組所有方法
+7.了解Draw.io使用方法
+
+4/27
+1.了解Flask基本語法
+	Blueprints 藍圖架構
+	Factories  工廠架構
+	$SCRIPT_ROOT的意義 Jquery插入方法  見https://dormousehole.readthedocs.io/en/latest/patterns/jquery.html
+	$.getJSON(url, data, func)    url发送一个 GET 请求，并把 data 对象的内容作为查询参数。
+                                      一旦有数据返回，它将调用指定的函数，并把 返回值作为函数的参数
+2.了解網路基本架構與名稱
+	XHTML   可延伸超文本標示語言
+	SSL/TLS 傳輸層安全性協定
+	SNMP    簡單網路管理協定 
+	SMTP    簡單郵遞傳送協定
+	FTP     檔案傳輸協定 應用層
+	SIP     對話啟動協定
+	IPS     網際網路協議套組
+	ICANN   網際網路名稱與數字位址分配機構
+	TCP     傳輸控制協定 傳輸層
+	PPP Point-to-Point Protocol 對等協定
+3.了解Navbar 用法 
+	沒有套入Boostrap等資源 等套到其他頁面時藉由頁面上方引入
+
+4/28
+1.編輯unittestmain -
+	到get_control_equipList()
+2.了解MongoDB語法
+	bson    屬於MongoDB傳輸與儲存資料的方式
+3.了解Datatable工具
+	了解套件工具用法
+4.了解Javascript語法
+	prop(index,currentvalue)  刪除目前index的currentvalue屬性 見:https://www.runoob.com/jquery/html-prop.html
+	send(event,xhr,options)   見https://www.runoob.com/jquery/ajax-ajaxsend.html
+	open(MIMEtype,replace)    會接在document.write 或是  document.writeln前 結尾必須使用  document.close關閉 否則結果不顯示
+4/29
+1.編輯unittestmain - 
+	到get_control_equipList()
+2.了解Javascript Fullcalender套件
+3.了解Javascript語法
+	.datapicker    可以直接選取日期,寫好的小套件 見https://www.runoob.com/jqueryui/example-datepicker.html
+	function(e)    callback function 傳入事件event 通常設定為e 見https://hugh-program-learning-diary-js.medium.com/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A4%8E-javascript%E7%AF%87-javascript-%E7%B6%B2%E9%A0%81%E4%BA%8B%E4%BB%B6%E8%99%95%E7%90%86-2596dbad9bdc
+	同步非同步
+
+5/2
+1.了解後端架構
+
+5/3
+1.編輯unittestmain - 
+	到site_control_set_mode()
+
+2. 了解Pyrhon語法
+	simplejson.json.dumps(thing, ignore_nan=True,default=datetime.datetime.isoformat) 
+		ignore_nan=True  			把所有nan值轉換null,
+		default=datetime.datetime.isoformat	允許 simplejson 正確解析您的日期時間。
+	全大寫命名變數  全域性變數名(類變數,在java中相當於static變數): 
+
+3.了解Javascript語法
+	done()         上面的程式執行成功就會呼叫內部的function 不成功就不會執行
+	fail()         上面的程式執行失敗就會呼叫內部的function 成功就不會執行
+	foreach()      將得到的元素 皆傳入並執行給定的函式一次。 見https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+	||  JS運算子   見https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Expressions_and_Operators 
+	readyonly      唯讀模式 只能看input內的內容但無法更改
+	setInterval()  固定延遲了某段時間之後，才去執行對應的程式碼，然後「不斷循環」
+	off()          移除所有 <p> 元素上的 click 事件 見https://www.runoob.com/jquery/event-off.html
+	json.stringify 將 Javascript 物件轉為 JSON 字串。 見https://medium.com/itsems-frontend/javascript-json-stringify-and-json-parse-7a1251d3824c
+
+4.了解基本概念
+	強型別 與弱型別差異   
+		弱型別可以把型別自動轉換 例如字串加上round() 會顯示出0 但不是顯示錯誤
+		強行別則不能如此 字串加上四捨五入 會跳錯誤 告訴你浮點數才能做四捨五入 或是告訴你字串無法轉成浮點數的型態
+	動態型別 與 靜態型別差異 
+		動態型別可以同時給a付值 最後會顯示最後付值的結果 靜態型別則不行 會跳錯誤
+5.了解Plotly語法
+	purge() 清除該div元素
+
+
+5/4 - 5/10 
+完成 Javascirpt全攻略_克服JS奇怪的部分
+網路基本認識
+	Switch(交換器) 		直接接電腦網路線的地方 會有很多孔 會連接至Router (路由器)
+	無線AP  		無線上網的連接器 在有線的部分等於Switch的功能 他會有範圍 超出範圍就會斷線
+	無線AP  		controller 負責管理這些無線AP的裝置 大約等於有線的Router
+	Hub集線器 		通常被當作終端的網路設備(access) 直接用來連接電腦設備 有很多的連接埠(Port) 規格固定都是RJ45
+		  		由於Hub傳輸效能很差 因此現在很少再用
+	fa0/1   		fa是fastEthernet 的縮寫 最快的傳輸速度是100M 可以降到10M Ethernet則是 10M最高 更快的是Gega Ethernet 100M以上
+				網路設備其實是一個模組 會有很多個port  0/1 代表了第0號插槽的第一個端口 (slot/number)
+				等於是第一個模組的第一個插槽 2/2就是第二個模組的第二個插槽
+	共享匯流排Shared bus 	匯流排可以視作資料傳送的通道 共享匯流排的所有連接埠都連接到此通道
+				Hub在傳遞資料的時候就是將收到的資料全部送出 所有連接在Hub的電腦都會收到資料 
+				每一台電腦都可以存取匯流排 這種特性稱作共同存取 符合乙太網路的規格(不用去經過同意就可以存取)
+	實體位址MAC		電腦的身分證字號 MAC由48位員組成 前面24位元是網路卡製造商編號 需要去跟協會申請
+				後面是廠商內控流水號 網路卡上的MAC位址不會重複
+				要查詢電腦的MAC位置 就在CMD中輸入 ipconfig/all就好了
+	PC1送出資料		會將來源電腦與目的電腦的MAC位址放到資料前面 參考傳輸七層概念
+	單播傳送		從來源端電腦只傳送資料給另一台電腦 >  Unicast MAC 一定存在網卡中
+	廣播傳送		從來源端電腦傳送資料給所有連接到這個網路的電腦 (類似國小鎖螢幕的概念,會跳過MAC檢查,48個bit全部設定1,電腦就會知道你要廣播了) Broadcast MAC 只有一個FF:FF:FF:FF:FF:FF
+	群播傳送		從來源端電腦傳送資料給選定的群組(像是Gmail副本的概念 沒有被加入群組內就看不到) Multicast MAC 要搭配IP位址來計算得到 前置碼為01:00:5E
+	CSMA			防止碰撞機制 先確認是否有資料在傳輸 有的話就暫時不送出資料
+				傳輸前先聽 假如聽到頻道是空閒時：傳輸整個訊框 假如聽到頻道是忙碌的時候：延後傳輸時間
+	CD			偵測碰撞機制 快要碰撞時 發出一個JAM訊號(訊號全部清空) 後退演算法會將兩台電腦送出的時間錯開
+	交換器(Switch)		前身是Bridge 一般橋接有兩個連接埠 這兩個連接埠切割兩個碰撞區域(不會互相衝突) STP協定就是在Bridge時代產生的
+				Switch上連接埠傳送資料是獨立的 不會互相影響 所以不會產生碰撞 
+5/11
+了解網路架構
+	Switch			可以做到直接傳送到目的電腦 其他電腦不會接收到 也不會傳送到他們那邊 資安考量而言也是更好的選擇
+				因為中間每個Port都有一個小型網卡 代表你會是一台電腦對一台電腦 就不會有碰撞問題
+				是為了加速乙太網路集線器的傳輸速度且不改變主機上的介面卡 而產生的 解決了Hub還是會有碰撞的問題
+				每一乙太網路接口(port)都可同時傳輸 中間有一個Switch control module 可以處理訊號轉換問題
+				
+
+
+	MAC Table		Switch中間幫忙處理資料 使其可以直接傳送到目的電腦的機制 他是一張表 記錄每一個Port的資訊
+				藉由判斷Port而去使其直接傳送到目的電腦 如果找不到 就會把資料傳送到所有電腦 MAC資訊保留時間是300秒 可以人工設定達到永久存留
+	全雙工			同時間可以送出資料也可以接收 且不會產生碰撞	ex:Switch	
+	半雙工			同一時間只能送出資料 或接收資料 並且會有碰撞產生 ex:Hub
+	儲存轉送		會在傳輸過程中 把資料存下來並且檢查 確認沒問題後轉送 缺點:速度慢 優點:資料可靠
+	截穿交換Cut through	只讀MAC資訊 確認目標地址就直接送出 並不檢查內部資料  缺點:資料不可靠 優點:速度快
+	自動切換		有些Switch可以自動判斷 依照錯誤率去決定使否要用儲存轉送 當錯誤率不高時用Cut through 錯誤率高時就使用儲存轉送
+				當錯誤率降回來時就繼續用Cut thorugh
+	Fragment-Free		兼具儲存轉送跟截穿交換的優點 檢查資訊前64位元的資料 有錯誤就把Frame丟棄 沒錯就轉送
+				就能保證資料一定正確 錯誤就要重新傳送
+	路由器Router		設計來規畫網路的 沒有太多的網路連接埠 有阻擋廣播資料的功能 每個網路連接埠就是一個獨立的廣播區域 Port的名稱會演進稱為Interface(介面) fa0/0 會稱為fa0/0介面
+				有提供網路區域的概念(網路就是多台電腦連結 稱之為網路) Router就是能夠提供一個網路的概念 串接起來就能變成一個大網路 也是我們現在Internet的來源
+				只有Router可以將網路區域連接起來 Switch跟Hub沒辦法 Router劃分網路區主要目的就是定位電腦所在位置(ip) 要先判斷他在哪個網路之下
+				Router的功能就是將資料送往其他網路區域 當目的地跟本地電腦不同區域 就要使用Router傳送資料 幫你選擇最好的路線 
+				Router也有一個Routing table作為繞送查詢使用 IP會對應到Port
+	MultiLayer Swtich	大部分公司內部網路的系統 具有路由器的部分功能 可以規劃廣播區域
+				當網路變多時 就要考慮網路流量問題 這時候就在採用階層式的網路規劃 
+	存取層Access		通常都是Switch Port要多 1.能連接大量的終端設備 2.提供VLAN功能 3.有流量控管,過濾功能CAL 4.提供穩定頻寬(服務品質QoS) 5.提供堆疊功能Stack 6.提供通過多條線路來實現線路容錯與頻寬 
+	核心層Core		1.專注在高效能的流量繞送
+	分散層Distribution	1.提供Routing功能 2.處理Swtich層中的VLan流量 3.能處理大量資料繞送 4.提供多條線路來實現線路容錯與增加頻寬 5.提供訪問ACL或是QoS功能實踐策略的連接功能到核心層和存取層
+	Spine-leaf架構		資料中心架構 需求要兼顧快速 流量平衡、彈性擴充與備援機制 採用兩個交換層Switch
+	LAN Local Area Network  區域網路
+	Share Link		分享連結的方法就是Multiplexing 跟De-Multiplexing 
+	多頻分工FDM		假設有四個人要同時傳 讓四個人同時擁有1/4的頻寬
+	多時分工TDM		讓四個人分開傳送 同一時間只有一個人傳 擁有全部的頻寬 但不會一個人一直傳會分時傳送
+	統計多工Statistical	使用FIFO,  Round-Robin, Priorties,QoS法
+	Protocols		協議 用來建立且區隔網路架構中的每個區塊模組
+	Service interface	定義介面在協議中的執行業務 用來處理上下層級的交換 因為每一層都會使用到下一層的服務 所以需要這個去處理傳輸服務	
+	Peer to Peer interfacc	定義同層對等者的訊息交換
+	Protocol Specification  協議規格 如訊息格式、狀態轉移圖、虛擬碼
+	Interoperables 		互相建構兩個或多個的正確協議規格 確認彼此能不能互相作用、傳輸
+	IETF			Internet Engineering Task Force
+	DNS			把URL(網址) 轉換成IP的服務 
+	訊息封裝encapsulation	往下一層傳送時 會加上自己的Header 稱之為訊息封裝encapsulation
+	頻寬Babdwidth		一秒鐘能送多少bits 1Mbps = 10^6位元/秒 1位元 = 1 minco second 管線的寬度
+	等待時間		Latency =  傳播時間 + 傳輸時間 +排隊時間			
+	傳播時間		距離/光速
+	傳輸時間		傳輸封包大小/頻寬
+	延遲Latency		管線的長度  延遲 x 頻寬 代表可以儲存在管線之中的位元數
+	Jitter			如果Jitter=0 代表每個封包經歷過的Deley都一樣
+				如果Jitter越大 代表你的影片/資料越不穩定 看起來就很不順
+
+	吞吐量Throughput	吞吐量 = 傳輸封包大小 / 傳輸時間 
+				傳輸時間 = 來回通訊延遲 + 傳輸大小/頻寬
+				這些參數彼此為相對性關係, 如 1MB 檔案對於 1Gbps連線看起來就像 1KB封包之於 1Mbps連
+				
+
+
+
+	OSI網路模型		有七層 由ISO國際組織訂定的
+
+第一層	實體層Physical		主要定義傳輸資訊的介質規格 例如同軸電纜 雙絞線 無線電波 紅外線等 都是屬於實體層的部分  Physical structure     Hub或是網路線
+
+第二層	資料連結層DataLink	主要負責資料的同步、偵錯、制定媒體存取控制的方法                             	       Frames                 Switch在的位置/NIC網卡
+				將連續的位元流組成一個 訊框 (frame) Frame包含了上層下來的所有封包 TCP,IP...等
+				這裡就是MAC會處理的部分 定義你是哪一台電腦要收	會根據DA去判斷要丟給誰
+
+	
+			                    
+第三層	網路層NetworkLayer	主要負責傳送資料的來源端與目的端的地址IP 選擇傳送資料路徑                    	       Packets                Router所在的位置 有些能處理IP的Switch也在這
+				如何將封包透過互聯網傳送給目的地主機 就在這裡處理
+				IP負責的位置 知道在哪個網路區域 由Router去判斷傳到哪個網路區域 
+				和MAC互相合作 (不可靠) Router跟Router之前會有Protocols 確認彼此是不是通訊狀態 有三種方法 RIP,OSPF,BGP
+
+
+	IP (Internet Protocol)	它是今日用來提供大規模異質網路互連的關鍵基礎，它運行在互連網路中的所有節點上，它定義了基礎架構使得這些節點與網路能運行得像一個互連在一起網路
+				有以下特色: 
+				1.以無連線(Connectionless)模式來傳遞資料 
+					兩個IP在互相連通的時候 並不需要先連線 把IP封包準備好 丟到網路上時 Router就會幫你決定要連去哪裡
+					兩個TCP通訊就需要事先連線 確認好才能連線 ex:電話、視訊電話
+					IP就像是郵筒、郵政系統，把信封準備好，收件人寄件人地址寫好，就可以傳輸。
+				2.盡力式傳送(不可靠服務)
+					封包可能遺失、傳遞順序可能紊亂、可能重複傳遞、遞送可能被延遲很長一段時間
+				3.全球定址機制
+					提供一種可以識別網路上所有主機的方法，具全球唯一性的 32 位元位址
+				
+				第三層路由器使用存儲轉發 (store and forward ) 的方式來轉送收到的 IP 封包 (datagrams).
+				IP 位址查詢 (查詢路由表, 此路由表乃經由路由協議, 如 RIP, OSPF, BGP等等,所建構而成 有兩個表 1.IP/MAC 位址對應表 2.Routing Table  如果找不到IP > 從預設埠轉送出去
+				新的路由器架構使用第三層交換器晶片與 IP 位址查詢晶片 (採用快速硬體查詢技術) 線速轉送設計可達 Gbps, 10Gbps, 100Gbps, … 但不具隨插即用特色Not Plug and Play (因為Router要設定IP)
+				IP封包表頭格式 請見http://dns-learning.twnic.net.tw/internet/intro6.html   如果是IPv6 則Address長度則為128Bit
+
+				B -> A (區域網路間的通訊): 先傳送訊框至相連接的路由器 > 路由器會轉送至目的地
+							   MAC(R) MAC(B) IP(A) IP(B) IP Datagram  > MAC(A) MAC(R) IP(A) IP(B) IP Datagram
+							   中間經過R 所以會先變成R +B(目的+送出)  再變成 A + R (目的+送出)
+	IP傳送策略		1.每一個封包都含有目的地 IP 位址 
+				2.如果路由器與目的地主機的網路直接連結，就直接發送給目的地主機 
+				3.如果路由器與目的地主機的網路不直接連結，發送給某一個路由器繼續轉送
+				4.路由表中有登錄網路編號與對應的下一站
+				5.每個主機有一個預設路由器 
+				6.每個路由器都一個路由表
+	IP 封包的切割與組合	可傳輸單元最大值 (MTU)  Ethernet 乙太網路 (1518 bytes) , IEEE 802.11 無線區域網路Wifi (2312 bytes) , FDDI 光纖網路 (4500 bytes)
+				任一片段如果遺失, 則 IP 協議直接丟棄該封包(不可靠 Unreliable)
+ 				
+	Router路由器特性	網路層路由 
+				1.與網路層的通訊協議相關 2.過濾 MAC 的廣播訊框與群播訊框 3.能輕易支持不同的傳輸媒介 (光纖, 電纜, 雙絞線….)
+				4.封包之切割與重組 (重組只在主機進行) 5.使用 IP 位址與資訊來過濾封包(黑名單/白名單) 6.可支援流量計費(可以收集資訊流量以此計價)
+				端點主機與路由器之間的直接溝通
+				1.路由器功能強大可彈性設定，但設定技術門檻較高 2.可調節不同傳輸媒介的網速差異 3.可支援擁塞控制與避免機制
+				路由協議
+				1.以任意的拓樸架構將第三層網路互相連結起來 2.決定封包的路由方向 3.靜態路由 4.動態路由協議 RIP、OSPF
+	子網路Subnetting	如果路由表中找不到對應的內容，送給預設的路由器、子網路遮罩不一定全是連續的1、一個實體網路能細分成數個子網路、在互聯網的其他地方看不到這些子網路
+			
+	無分級網址Classless Inter 簡稱 CIDR 這是處理互聯網上兩個有關規模問題的一種技術，越來越多的連網設備造成路由表不斷變大，32-bit IP 位址不敷使用
+
+				位址分配效率問題 1.此方式被提出是因為 IP 位址被分成 class A, B 和 C 三種型式 2.迫使我們僅能分發這三種固定大小, 但差異極大的網路位址空間 
+				ex:一個含有2個主機的網路需要一個 class C 的位址 位址分配效率 = 2/255 = 0.78  一個含有256個主機的網路需要一個 class B 的位址 位址分配效率 = 256/65535 = 0.39
+				IP 位址的枯竭主要在於 Class B 的網段已經耗盡 解決方法:一個自治系統 (Autonomous System, AS) 提出它們需要的位址數量接近 64K，否則不分發 class B 的位址出去 取而代之地，給他們適量的 class C 網段 缺點:造成路由器的路由表需要大量的儲存空間
+				
+ 				累積路由(aggregate routes) : 在路由表中使用單一項目來告訴路由器如何到達大量不同的網段  在前綴後放上“/X”表示這個前綴的長度(位元數)一個表示從 192.4.16 到 192.4.31 的 20-位元的前綴是 192.4.16/20 因為最後四碼可以有20個組合
+							     想表達一個 class C(32個) 的網段 192.4.16，可以寫成 192.4.16/24  例如要分配連續四個 就是192.4.16/22(後面有四個組合) 八個就是192.4.16/21 16個就是 192.4.16/20
+				最長前綴匹配 (Longest prefix matching) : 前綴在路由表裡也可能發生重疊 有些位址可能匹配到多個前綴 一個目的地是 171.69.10.5 的封包 被分配到 171.69 (長度為 16位元的前綴)、171.69.10 (長度為 24位元的前綴)
+									 則配對規則是”最長前綴優先配對”此例中， 最長的前綴是 171.69.10 另外一個例子 一個目的地是 171.69.20.5的封包則會被配對至 171.69 而非171.69.10(因為不Match)
+
+	位址解析協議 (ARP, Address Resolution Protocol) : 如果IP位址不在對照表中，則廣播請求封包，目的地主機收到請求後回應它的實體 MAC 位址，對照表中的項目具時效性, 逾時未更新會被刪除
+		
+	自動主機設定協議 (Dynamic Host Configuration Protocol) :DHCP 伺服器負責提供設置資訊給主機，在管理網域裡至少有一台DHCP伺服器，DHCP伺服器維護並管理可用的 IP 位址
+
+
+
+
+
+
+第四層	傳輸層TransportLayer	負責切割資料並編定序號 決定資料要以TCP還是UDP方式傳送 查別在於誰比較穩定
+				TCP-確認並追蹤這個封包有沒有接收/傳送到 像是掛號信                                     TCP/SPX/UDP
+				    傳送速度比較慢 Email或是各種重要資料基本上都用TCP 比較可靠
+
+				UDP-不確認是否有傳輸成功 像是平信 傳送速度較快 
+				    語音視訊的資料大多採用這個			      比較不可靠
+
+				點對點(End to End) 提供不同主機應用程式Processes之間的資料傳送
+
+				傳輸層協議通常希望能提供以下要求:
+				1.保證的訊息傳遞 2.訊息傳遞順序與發送順序相同 3.一個訊息最多只會傳遞一份
+				4.支援任意大小的訊息 5.支援發送者與接收者的同步 6.允許接收者對發送者執行流量控制
+				7.支援一台主機上執行多個不同應用程式
+
+				傳輸層下層的網路層服務 (如:IP網路) 典型限制:
+				1.丟棄訊息 2.重新排序訊息 3.傳遞多份相同訊息 4.傳遞的訊息有大小限制 
+				5.訊息傳遞可能有任意長短的時間延遲 >> 不可靠服務
+
+				不可靠服務 > 不可靠服務 (UDP) 
+				不可靠服務 > 可靠服務 (TCP)
+
+				
+	傳輸控制通訊協議 (Transmission Control Protocol，即TCP)	
+				有以下特性:
+				
+				1.可靠的服務 (Reliable) 
+				2.連線導向(Connection oriented) 
+				3.字元組串流服務(byte-stream service)
+
+				TCP 運行於互聯網上，非於一個點對點的鏈結上
+
+				TCP 支援互聯網上不同主機上應用程式間建立邏輯連線(logical connections) 
+				> 並沒有實體線路連接，而是透過網際網路連接，藉由Data Structure 建立連線
+
+				不同 TCP 連線的 RTT (Round Trip Time) 時間可能差異極大
+
+				封包在互聯網上傳遞時可能重新排序
+
+				TCP 是一個位元組導向通訊協議 (byte-oriented protocol)
+				傳送端將若干位元組寫入一個 TCP 連線，接收端則從該 TCP 連線讀取位元組，然而， TCP 不會在互聯網上傳輸各別的位元組
+				TCP 傳送端將應用程式傳送的位元組先儲存起來, 等位元組數量形成一個合理大小的資料段，再將此資料段送至 TCP 的目的端主機
+
+				TCP目的端會將資料段內容放入接收緩衝器，接收端應用程式再由此緩衝器讀取位元組
+
+				在 TCP 連線上傳送的封包稱為 資料段(segments) 讀取時不管如何切割 只在乎大小如何 有沒有完整收到一系列Byte
+				
+				
+	流量控制(Flow control)	用來預防發送者傳送過多的流量使接收者超出可負荷的容量
+				> TCP 需要一個機制讓一個連線的兩端皆可得知另一端提供什麼資源給該連線
+
+	壅塞控制(Congestion control) 用來預防網路被注入過多的資料而造成路由器/交換器或鏈路超出負荷
+				>TCP 需要一個機制讓發送端得知網路的負荷量
+
+				SrcPort 與 DstPort 欄位分別代表來源端口號(source port)與目的端口號(destination port) 
+ 				Acknowledgment、SequenceNum與AdvertisedWindow欄位用於TCP滑動視窗演算法
+ 				因為TCP為位元組導向協議，資料的每個位元組皆有一個序號 ; 而SequenceNum 欄位為此資料段上的第一個資料位元組的序號
+ 				Acknowledgment 與 AdvertisedWindow 欄位攜帶的是反方向上資料傳輸的流量控制相關資訊
+				6-位元旗標欄位用來傳遞 TCP 連線兩端之間的控制訊息
+ 				可能的旗標有 SYN、FIN、RESET、PUSH、URG 與ACK
+ 				SYN 與 FIN 旗標分別於建立與中止TCP 連接時使用
+ 				ACK 旗標 = 1 表示 Acknowledgment 欄位上的值是有效的，表示接收者應該注意此欄位值
+				URG 旗標表示此資料段包含緊急資料。當此旗標被設為 1 ， UrgPtr 欄位值代表此資料段上的非緊急資料的起始位置
+ 				因緊急資料會放在資料段主體的前面部分，由這裡一直到 UrgPtr 所指的位置之間皆為緊急資料
+ 				PUSH 旗標表示發送者啟動推擠動作，會指示TCP接收端應通知其接收應用程式有此動作
+				RESET 旗標表示接收端因為困惑於接收到一個無預期接收的資料段—因此想要中止此連線
+ 				最後，Checksum 檢查碼欄位 使用方式跟在UDP的一樣— 它由TCP Header、TCP data 與 pseudoheader (由來源端位址、目地端位址與 IP header長度組成) 計算得出
+
+
+	TCP 連線管理		TCP 傳送端與接收端在交換資料段之前會先建立“連線” 
+				TCP 連線初始變數: 序號(Sequence Number) 、 緩衝器, 流量控制訊息 (e.g. RcvWindow)
+				Client: 連線啟動者 Ex:Socket clientSocket = new Socket("hostname","portnumber");
+				Server: 等待 client 接觸 Ex: Socket connectionSocket = welcomeSocket.accept();
+
+	三向交握 (Three-way handshake):Step 1: Client 發送 TCP SYN 資料段，給server註明一開始的序號，不包含資料
+				       Step 2: Server 收到 SYN，回傳SYN/ACK ，資料段server 配置緩衝器，註明 server 一開始的序號
+				       Step 3: client 收到 SYN/ACK，回傳可能帶有資料的ACK 資料段
+
+	關閉連接:client 關閉 socket:clientSocket.close();
+				       Step 1: Client 發送 TCP FIN 控制資料段給 server
+				       Step 2: Server 收到 FIN，回傳ACK。關閉連線，發送FIN。
+				       Step 3: Client 接收 FIN，回傳 ACK。進入 “timed wait” –當接收到 FINs 將回傳ACK
+				       Step 4: Server 接收ACK ，連線關閉。
+                                       Note: 做一些小更改後，可處理同時多個FINs
+	原始演算法		為每一對 資料段/ ACK 量測其 SampleRTT 值計算 比重化 (weighted) RTT 平均值
+				EstRTT = a x EstRTT + (1 - a )x SampleRTT  a 值介於 0.8 與 0.9 之間
+ 				基於 EstRTT 來設定逾時時限值 (Timeout)TimeOut = 2 x EstRTT
+
+
+
+第五層	會議層SessionLayer	負責通訊的雙方在正式傳輸前的溝通 目的在建立傳輸時所遵循的規則                          Synch send to ports    Logical Ports RPC/SQL/NFS
+				把很多不同的傳輸流緊密的結合成應用程式的一部分
+
+第六層	表達層PresentationLayer	主要定義資料的內碼轉換、壓縮與解壓縮、加密與解密                                       Syntax layer           ASCII/JPEC/GIF....
+				注重網路資料交換格式的呈現
+
+第七層	應用層ApplicationLayer	提供各種應用程式協定給使用者 例如 檔案傳輸 電子郵件 網頁瀏覽等	                       End User Layer	      SMTP/HTTPs/Email
+
+
+
+
+
+	
+	TCP/IP模型		由美國國防部軍事用途所研發出來，又稱為DoD模型 定義了四層模型 往底下走 就會多一層Header封裝 往上走就會解封裝 
+
+第一層	網路存取層		對應到七層的前兩層   決定馬路上跑的是甚麼 是汽車還是機車還是馬 郵局
+第二層  網際網路層		對應到七層的IP層     Swtitch的位置                             地址
+第三層	傳輸層			對應到七層的TCP層    Router的位置 			       信封
+第四層	應用層			對應到七層的五六七層 使用者網路的部分 這邊都是網路層	       信    
+
+Application、Transport 主要負責資料的傳送與接收
+NetWork 	       主要負責主機位置的定址與路由傳送
+Data、Link、Pysical    主要負責資料線路的實際傳送
+
+
+
+
+5/12
+了解網路架構
+	乙太網路Ethernet	一開始有下列兩個特性 無連線、不可靠傳輸
+	10base5
+
+	無連線Connectionless	傳送端網路介面卡及接收端網路介面卡之間傳送封包前不需建立連線  打電話就需要建連線
+	不可靠傳輸Unreliable	接收端的網路介面卡不會送資料傳輸確認訊息(ACKs) 或 資料傳輸未確認訊息(NACKs) 給傳送端之網路介面卡
+				對方不一定會收到 因為不會確認是否收到 外加訊號中間可能有干擾 或是多台PC傳封包上來 就會產生衝撞 就會失敗
+	匯流排Bus		所有端點皆於同一碰撞區域 (同時傳送會相互碰撞) 這種設計最初及最後都會有終端器以防封包彈回自己衝撞 像是一個小棒子
+				中間連接PC的地方也會有收發器
+	收發器Transceiver	用以偵測鏈結是否閒置，並在主機傳送時負責驅動訊號  負責接收傳入的訊號
+				另一端連接到乙太網路介面卡，而介面卡則插在主機上。但目前多數是直接實作在電腦上.
+				此 CSMA/CD 協議均是實做在介面卡上.
+	纜線訊號(曼徹斯特編碼)	每一位元都會有一電位轉變 (如同 clocks) 可用來讓傳送端及接收端進行時間的同步
+	Manchester Encoding	藉由電位去判斷訊號是0還是1 用這樣的方式去判斷訊號內容
+	中繼器Repeter		多個乙太網路段可以藉由中繼器(repeater)來連接 中繼器是用來傳送數位訊號的裝置 因為會有訊號衰弱問題 中繼器可以讓訊號還原
+				任兩部主機之間不能有超過四台中繼   這表示一個乙太網路的最大可達範圍長度僅為 2500公尺 
+				理論上能一直接Repeter去延長乙太網路的連線 但因為有網路通訊協定以及效率問題 所以基本上只能接到2500公尺(五個網段)
+	
+
+	乙太網路Ethernet	非使用同軸電纜，乙太網路也可以使用較細的纜線來實作，稱之為10Base2
+	10Base2			10 表示該網路以10 Mbps運作 Base 起因於此類纜線被用於基頻系統 2 表示每一網段最長為 200 公尺
+				還是使用CSMA/CD 還是用Cable 還是有終端器 只是終端器更小更好用 距離比較短
+
+
+	乙太網路Ethernet	T 代表雙絞線 長度限制在100公尺以下 以10BaseT而言, 常見的組態是許多點對點網段集中至一個多重中繼器，也稱作集線器（Hub)
+	10BaseT			現今的乙太網路拓墣以星狀網路最為盛行 交換機置於星狀拓墣最中間 分散式的乙太網路協定 (主機和主機之間的訊息不會相互碰撞)
+
+	訊框 (Frame) 格式	Preamble 先導位元 (64 位元): 使得接收端得以進行訊號同步 一系列交錯的 0 與 1 訊號
+				Source and Destination MAC Addresses (每個 48 位元)  來源及目的端主機的網卡位址
+				Packet type 封包型別(16 位元): 指出此訊框應被送到哪個上層協議
+				Data 資料 (最多包含 1500 位元組)  資料最少要有 46 位元組 資料要夠長到能夠偵測傳輸是否發生碰撞
+				FCS 訊框檢查碼: CRC (32 位元
+	
+	乙太網路Ethernet	1.在乙太網路中的主機都有一個唯一的乙太網路地址
+				2.該地址屬於介面卡而不是主機 它會被燒錄在介面卡的唯讀記憶體中
+				3.乙太網路地址通常以一種人們能讀取的形式來表示	以冒號隔開的六個數字所組成的序列
+				  每一個號碼相對於6位元組中的一個位元組，並以兩個十六進位數字表示，每一個表示位元組中四位元的值 開頭的 0 則被省略
+				  舉例來說, 8:0:2b:e4:b1:2 是 00001000 00000000 00101011 11100100 10110001 00000010
+				4.任何傳送進入乙太網路的訊號皆會廣播到整個網路上 但僅接受下列訊框: 訊框目的位址就是自己網卡位址 訊框目的位址為廣播位址 訊框目的位址為一群播位址, 而此主機有加入該群組
+
+	CSMA/CD			載波感測方法與延遲方法與 CSMA 相同, 不同之處在於 > 1.在短時間內就可以偵測是否發生碰撞 2.碰撞發生立即中斷傳輸, 降低頻道的浪費
+	Colision Detection	碰撞偵測:測量訊號的強度，比較傳送的訊號與接收的訊號
+				乙太網路使用 1-persistent 協議，也就是每當鏈結狀態由忙碌變至閒置時, 介面卡傳送訊框的機率為 1 (100%)
+				當介面卡偵測到訊框和別人發生碰撞時，首先會傳送一段 32-位元 的擾亂訊號（jamming sequence）並且停止傳送訊框
+				當兩個主機距離較遠時，因為訊號傳遞需要較久的時間, 所以在偵測出碰撞前，他們可能會送出較多的位元(較長的訊框
+	衝撞視窗		一個網段訊號來回 最久的時間( round-trip delay 來回延遲(2a))
+	Collision Window 	兩節點距離越遠，需花越長的時間傳訊框給對方，而網路可能會在這段時間發生碰撞情況
+				訊號往返最遠兩端的時間延遲被設定為 51.2 us 在 10 Mbps乙太網路, 此時間可以傳送 512 位元的資料 10 Mbps x 51.2 s = 512 位元
+				為了讓 CSMA/CD 演算法可以正常運作(由其是衝撞偵測) 我們必須限制乙太網路的最大延遲不要太大 (51.2 us 是合適的值) 因此乙太網路的最大長度是 2500 公尺
+	指數後退演算法		一旦介面卡偵測到碰撞且停止傳送，它會等一段時間後再來重新嘗試傳送
+				每次介面卡嘗試傳送訊框但失敗後，就會加倍等待的時間後再來重新嘗試傳送
+				此將每次重送嘗試之間的延遲時間加倍的策略被稱作指數後退（Exponential Backoff).
+				介面卡第一次等待的時間不是 0 就是 51.2 us，兩個值隨機挑選 再重新傳送前，會等待 0, 51.2, 102.4, 或 153.6 us (隨機選一個)
+
+	衝撞後退後及重送的機制  
+	BEBA:Truncated Binary Exponential Backoff Algorithm
+				後到先送 : 相對於因衝撞而等待時間較長的主機，沒有發生碰撞或是碰撞次數少的主機有比較高的機會可以成功傳送訊框
+
+	強制衝撞Jam signal	為了確認所有參與衝撞的工作站能確實偵測碰撞 --- 長度為 32 位元的訊號
+
+	時槽時間(Slot time) = 51.2 us
+
+	橋接器(bridge)		是一個MAC層(第二層)的網路設備，用來連接並協助實體分離區域網路上的訊框轉送
+				以讓終端主機將這些實際分離的區域網路視為邏輯上同一個區域網路
+
+	可靠傳輸機制		我們可以使用以下兩種基礎方法的組合達到重送錯誤訊框的目的  1.肯定回覆 2.等待逾時
+	Reliable Transnission	1.肯定回覆 (縮寫 ACK) 是一個小的控制訊框 接收端用來通知傳送端其已收到稍早傳來的訊框。
+				2.等待逾時 若傳送端在經過一段適當的等待時間還沒有收到肯定回覆 ，傳送端會重新傳送原本的訊框
+				一般使用肯定回覆 與 等待逾時 實作出的可靠傳輸方法, 有時又稱為 自動重覆請求 (ARQ, Automatic Repeat ReQuest)
+	
+	滑動視窗協議		傳送端給予每個訊框一個序號 (SeqNum)，假設序號值可成長到無限大。
+	Sidewidows portocol	傳送端持續記錄著三個變數 1.傳送視窗大小 (SWS)     傳送端可傳送不同訊框(未收到肯定回覆的訊框)數量的上限
+							 2.最後收到肯定回覆 (LAR) 最後收到的肯定回覆序號
+							 3.最後傳送的訊框 (LFS)   最後送出的訊框序號
+				傳送端也會維持下列的不變條件	LFS – LAR ≤ SWS
+				傳送端對每個傳送出的訊框會有一個計時器 若計時器在肯定回覆到達前逾時, 則重傳該訊框
+				什麼時候傳送端可以移動他的視窗 當收到編號為 LAR+1 的肯定回覆
+
+				接收端持續更新三個變數	 1.接收視窗大小 (RWS)   接收端同時可接收未按照序號到達的訊框數量上限
+							 2.最大可接受訊框 (LAF) 最大可以接收的訊框序號
+							 3.最後收到訊框 (LFR)   最後收到的訊框序號
+				接收端會維持下列的條件	LAF – LFR ≤ RWS
+  				當序號為 SeqNum 的訊框到達時，接收端會如何處理 > 若 SeqNum ≤ LFR 或 SeqNum > LAF 將此訊框丟棄 (此訊框在接收端滑動視窗外)
+									       > 若 LFR < SeqNum ≤ LAF	   > 接收此訊框
+				SWS < (MaxSeqNum + 1)/2  最安全
+				滑動視窗協議提供下列三個特性 : 1. 可靠的傳輸 2. 維持訊框順序 順序錯誤的訊框會被置於緩衝區 
+							       3. 流量控制 接收端可以藉由設定RWS的值調節傳送端的速度 防止傳送端傳送過多訊框將接收端塞爆
+
+
+
+	累積式肯定回覆 		SeqNumToAck 表示未收到肯定回覆的最大序號，因此所有編號小於 SeqNumToAck 的訊框都已經收到
+	Accumulative ACKs	即使收到較高序號的訊框，接收端還是會送出序號為SeqNumToAck 的肯定回覆 這種稱為累積式的肯定回覆
+				接收端會設定值	LFR = SeqNumToAck -1 與 LAF = LFR + RWS (視窗滑動)
+
+	VLAN 虛擬區域網路技術	1.沒有虛擬區域網路時，第二層的交換機/橋接器將會轉送收到的廣播 (broadcast) 與 群播 (multicast )訊框至所有埠 (ports)
+				>頻寬浪費問題　及　安全問題 > 如果其中一個節點(node) 會竊取資訊，安全問題就浮現了
+				2.簡單管理邏輯群組(logical group of stations)內的主機，包含從群組中移除、加入、修改成員等
+				>這就是VLAN的來源，從幾個工作站中挑幾個我想要的，使其相當於使用同一交換機，但實際上並不是(虛擬)
+				3.虛擬區域網路具有類似防火牆的機制，不同的虛擬區域網路間的廣播與群播的流量傳遞將會受限
+				>屬於不同VLAN的工作站要互相溝通，需要經過Router的防火牆，確定可以才能建立連線
+				4.支持共享式傳輸媒體 (shared media) 以及點對點式傳輸鏈路 (point-to-point media)
+				>如果設備不懂得Vlan也沒關係，還是可以共存，只要有設備能懂就好
+				5.保持現有的橋接器/交換機和主機的相容性
+				6.減少虛擬區域網路的參數配置設定，使得交換機/橋接器支援隨插即用特性 (Plug-and-Play)
+				7.每個虛擬區域網路有獨立的”虛擬區域網路辨識碼”(VLAN ID, 簡稱 VID)
+
+	VLAN概述		虛擬區域網路服務(VLAN Services) 建立於橋接網路
+
+				需要轉送程序(Forwarding Processes)來支援虛擬橋接區域網路服務，需要過濾資料庫(Filtering Database)來支援虛擬橋接區域網路服務
+		
+				虛擬區域網路服務必須提供協議和程序來設定虛擬區域網路成員的資訊(成員可動態加入或退出)
+
+				需要管理服務和運作程序來設定與管理虛擬橋接網路服務
+
+	VLAN架構		基於三層式模型: MIBs、Declaration Protocols and Req/Resp Protocols、Ingress Rules/Forwarding Rules/Egress Rules
+				參數設定 (Configuration)，配送/解析 (Distribution/Resolution)，訊框轉送 (Relay)
+
+	參數設定(Configuration)	虛擬區域網路的參數設定為首要的工作，設定虛擬區域網路的參數 (如每個虛擬區域網路包含哪幾個接口或是埠號)
+
+				有以下分類方式: 基於埠號(Port)、MAC 位址、子網域(Sub net)、第三層協議(Layer-3 Protocol)的虛擬區域網路
+				
+
+	配送 (Distribution)	配送虛擬區域網路成員的資訊至所有橋接器，使之有能力決定要將收到的訊框轉傳至哪個虛擬區域網路
+
+				多種方法可達到配送功能: 
+				1.透過宣告協議 (Declaration Protocols)來配送虛擬區域網路的關聯資料 
+				  > GARP (Generic Attributes Registration Protocol) 通用屬性註冊協議, 用來在橋接器間配送虛擬區域網路成員資訊
+				2.透過請求/回應的協議 (Request/Response protocols)來取得特定的虛擬區域網路的關聯資料 (如 SNMP 簡易網路管理協議)
+				  > 用GET/SET去調整設地
+
+	訊框轉送 (Relay)	此流程負責增加、修改、或移除位於訊框上的標籤 (tag)，虛擬區域網路訊框格式攜帶有 VLAN IDs (VIDs)
+				
+				輸入規則 (Ingress rules) :將接收到的訊框對應至不同的虛擬區域網路
+				轉送規則 (Forwarding rules) : 決定接收之訊框應由哪些埠轉送
+				輸出規則 (Egress rules)	: 針對不同輸出埠號, 轉換欲轉送訊框的格式 (添加標籤或移除標籤)
+				
+				此為基於埠號的方法, 根據虛擬區域網路成員的關係規範了輸入規則、轉送規則、輸出規則使得橋接器得以:
+				將所有收到的無標籤訊框分類至特定的虛擬區域網路 (PVID, Port VID).
+				由已收到的有標籤訊框上辨識其 VID.
+				利用此 VID 來轉發或過濾此訊框.
+				根據 Port/VLAN 配對的規則，將訊框以貼標籤或無標籤的格式傳送.
+	輸入規則/輸出規則	每個接收到的訊框都會被辨識且歸類到一個虛擬區域網路, 並且給予一個 VID
+				辨識工作可經由下列方法完成 : 顯性標籤 : 訊框所攜帶的 VID 值，隱性標籤 : 接收到此訊框的連接埠的 PVID
+				假如此訊框的輸出埠不在此虛擬區域網路的成員集合 (Member set) 中，則此訊框將會被過濾掉
+
+	基於埠號的虛擬區域網路  存取鏈路(Access Link) 是一個網路區段, 用來將一台或多台非虛擬網路設備連接至虛擬網路橋接器的一個接口
+				  >所有位於存取鏈路的訊框都使用隱性標籤
+				  >存取鏈路上不會有貼上 VLAN 標籤的訊框
+				  >可視為網絡的最外邊緣
+				  >可以連接到其他 802.1D 相容的橋接器（BLAN）
+				主幹鏈路 (Trunk Link) 是一個網路區段, 用來在虛擬網路橋接器之間轉送屬於不同 VLANs 的訊框
+				  >所有連接至主幹鍊路的設備必須為虛擬網路設備
+				  >所有在主幹鍊路上的訊框(包含最末端主機的訊框)都具有顯性標籤 (VLAN ID)
+				混合鏈路(Hybrid Link) 是一個網路區段, 用來連接虛擬網路設備與非虛擬網路設備
+				  >此鏈路上可以有貼標籤的訊框與未貼標籤的訊框，但這兩種訊框必須屬於不同的虛擬區域網路
+				  >屬於同一個虛擬區域網路的訊框必須全部貼標籤或全部不貼標籤
+	混合鏈路中訊框貼標籤的規則  對於每個虛擬區域網路，所有經過一個混合鏈路的訊框都必須遵守相同的標籤規則:
+				所有訊框皆為隱性標籤 (未貼標籤) 或所有訊框都攜帶同樣的顯性標籤 (貼標籤)
+				範例中的混合鏈路 > 所有虛擬區域網路 A 和 B的訊框都是顯性標籤，所有虛擬區域網路 C 的訊框都是隱性標籤
+
+
+	DHCP(Dynamic Host Configuration Protocol) 動態網域 
+				
+
+
+5/13
+了解Javascript語法
+	attr()		替前面的document.queryselector選到的屬性 加上attr()內中的屬性 見https://www.w3school.com.cn/tiy/t.asp?f=jquery_attributes_attr_set
+	css()		替前面的document.queryselector選到的屬性 增加css()內中的屬性
+	each()		替前面的document.queryselector選到的屬性 遍历一个jQuery選擇对象，为每个匹配元素执行一个函数。  見https://www.w3school.com.cn/tiy/t.asp?f=jquery_traversing_each
+			$(selector).each(function(index,element))
+了解網路架構
+
+
+5/16
+DeBug EMS
+
+了解網路架構
+
+了解Plotly功能
+
+編輯unittestmain - 
+	到history_data_list()
+5/17
+了解Plotly用法
+
+了解網路架構
+
+編輯unittestmain -
+	
+
+
+
+
+

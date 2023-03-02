@@ -1,0 +1,534 @@
+	- Comparison比較 (ex: $eq、$gt、$lt、$ne ...)
+	- Logical 邏輯 (ex: $and、$not、$nor、$not)
+	- Element元素 (ex: $exits)
+	- Evaluation評估
+	- Geospatial地理空間
+	- Array數組
+	- Bitwise按位元
+==========================================================
+
+MongoDB Index
+
+	- Single Field 單字段
+	- Compound Index 複合索引
+	- Multikey Index 多鍵索引
+	- Geospatial Index 地理空間索引
+	- Text Indexes 文本索引
+	- Hashed Indexes 哈希索引
+	- Unique Indexes 唯一索引
+	- Partial Indexes 部分索引
+	- Sparse Indexes 稀疏索引
+	- TTL Indexes TTL 索引
+	- Hidden Indexes 隱藏索引
+==========================================================
+
+MongoDB Index 基本操作
+
+	- 創建Index db.collection.createIndex(keys, options)
+	- 查看Index db.col.getIndexes()
+	- 查看Index大小 db.col.totalIndexSize()
+	- 刪除所有索引 db.col.dropIndexes()
+	- 刪除指定索引 db.col.dropIndex(key:1)
+	- 備份數據庫 mongodump		需要在一般cmd下執行 而非mongoshell內 ,會在當前目錄下創一個dump資料夾, 內會有備份下來的資料庫文檔
+					也可以指定備份單一資料庫單一collection mongodump -d test1 -c movie
+
+	- 復原數據庫 mongorestore	--drop指令 如果有重複就刪除前面資料 恢復之前存的資料
+					--nsInclude test1.moive dump 恢復特定DB內的特定Collection 在dump中的資料
+					可以使用mongorestore --help 去看有甚麼指令能下
+					
+==========================================================
+
+顯示條件設定
+db.orders.find({status:"finished"},{name:1,status:1,_id:0}) 後面的條件可以選擇誰要顯示 1:顯示 0:不顯示
+
+
+
+MongoDB 登入
+mongo --host 127.0.0.1 --port 27017 -u "root123" -p "password" --authenticationDatabase "admin"
+
+unique :true
+db.people.createIndex({name:1},{unique: true}) > 讓前面設置的name Index成為唯一的Index 不能重複
+
+TTL index
+db.ttl.createIndex({createAt:1},{expireAfterSeconds:10}) > 依照createAt做Index, 然後10秒後刪除資料
+							   expireAfterSeconds會連該筆資料一起刪除，比較麻煩一點
+
+Compound index
+db.people.createIndex({name:1},{age:1}) > 依照name 跟 age去做Compound Index 這樣在當Name重複的時候
+					  就能再以Age去做分類查找 提高搜尋效率
+
+文本索引 Text Index
+	db.test.createIndex({title:"text"}) > 依照title 去做一個Text index(文本索引) 如果去getIndexes 
+	  				      中間會有一個default_languge : XXX 依照你放的文本去決定語言
+					
+	db.test.find({$text: {$search : "room"}}) > 依照剛剛設置的text索引 去搜尋 room 這個關鍵字
+					    	    有一個前提 : 不能搜尋語助詞 the this 等這種非固定字
+
+	db.test.find({$text: {$search : "war room"}}) > 會搜尋到符合war 或是room的關鍵字
+
+	db.test.find({$text: {$search : "\"war room\""}}) > 這樣才會搜尋到 war room的詞
+
+	db.test.find({$text: {$search : "room"},"$caseSensitive": true}) > caseSensitive可以固定搜尋字母，不會搜尋到其他的大小寫
+								   	   以這個例子就是搜尋 小寫的room 所以結果不會有大寫Room
+
+	db.test.dropIndex({"title_text}) > 要Drop文本index 必須直接傳入整個index字串 可以用getIndexes() 去找到name值
+				   	   用這個去刪除即可
+
+Background : true
+db.people.createIndex({name:1},{background : true}) > 將在背後設定,設定完之後同時能進行操作,並不會影響到其他操作
+
+
+==========================================================
+
+GeoJson Objects 處理地理位置的文檔
+
+{
+  "_id": {
+    "$oid": "55cba2476c522cafdb053add"
+  },
+  "location": {
+    "coordinates": [			有包含座標
+      -73.856077,
+      40.848447
+    ],
+    "type": "Point"			跟種類(type,見官方文檔)
+  },
+  "name": "Morris Park Bake Shop"
+}
+
+GeoJson 操作方式
+
+db.restaurant.find({location:{$nearSphere:{ $geometry: { type:"Point",coordinates:[-73.8783737,40.768099]},$maxDistance:500}}})
+
+$nearSphere 尋找附近符合後方條件的資訊 用球面幾何計算距離 。
+
+$geometry   放入目標位置的座標 請先指定經度，然後再指定緯度。
+
+$minDistance距離前面$geometry的最小距離
+
+$maxDistance距離前面$geometry的最大距離
+
+
+db.restaurant.aggregate([{$geonear:   			用aggregate可以找到更詳細的資訊,也能做排序等條件
+	{near: 
+		{type :"Point",coordinates:[-73.8783737,40.768099]},
+		distanceField:"dist.calulated",		包含計算距離的輸出字段。要指定嵌入文檔中的字段
+		maxDistance:500,			距離不超過500M
+		includeLocs:"dist.location", 		這指定了標識用於計算距離的位置的輸出字段。當位置字段包含多個位置時
+		spherical:true}				確定 MongoDB 如何計算兩點之間的距離的方法 > true，MongoDB 使用$nearSphere語義並使用球面幾何計算距離
+	}]).pretty()										    false，MongoDB 使用$near語義：2dsphere的球面幾何和2d的平面幾何。
+
+
+type : "Point" > 地圖上的點
+     : "Polygon" > 地圖上的多邊形
+
+
+db.neighborhoood.findOne({
+	geometry:					尋找方法
+		{ $geoIntersects:			尋找是否在一個區域內
+			{ $geometry: 			尋找這個點是否在資料庫內的的距離座標之中
+				{type:"Point",coordinates:[-73.94187230011019,40.60855546746685]
+			}
+		}
+	}})
+
+有的話 會回傳該值
+
+==========================================================
+
+Aggregation 聚合操作
+
+Aggregation 輸入的必須是一個Array 在其中以大括弧輸入條件
+
+
+db.orders.aggregate(					Aggregate就像是流水線 依照你的需求順序去調整輸出
+    [
+        {$match:{status:"finished"}},				1.第一步 搜尋status:"finished"的條件
+        {$group: {_id: "$name", total:{$sum: "$amount"}}},	2.第二步 按照Name分組 再依照amount求和$sum 放到total的value值內
+        {$sort: {total:-1}}					3.第三部 最後依照total 排序 由大到小
+    ]
+)
+
+db.movie.aggregate([
+	{$group: 
+		{_id:"$director_name",			1.依照director_name進行分組 同一導演同一組
+		average:{$avg: "$imdb_score"		2.對同一導演的imdb_score分數進行平均,結果放入average value值內
+		}
+	}},{$sort: {average:-1}				3.最後依照average結果進行排序 由大到小
+}])
+
+
+db.orders.aggregate(
+    [
+        {
+            $match: { status: "finished" } },		1.依照status是否為finished 去找match的資料
+        {
+            $project:					2.project依照是否要顯示 去做設定 1:顯示 0:不顯示
+                { 
+                    name: 1,				  name顯示 status顯示 id不顯示
+                    status: 1,
+                    _id: 0,
+                    new: ["$amount", "$name"]		3.在project中新增顯示條件new : 條件為amount跟name
+                }					  
+        }
+    ]
+)
+
+db.orders.aggregate(
+    [
+        {
+            $match: { status: "finished" } },		1.依照status是否為finished 去找match的資料
+        {
+            $project:
+                {
+                    name: {$toUpper: "$name"},		2.新增顯示條件 name, toUpper顯示成大寫 然後丟給name值
+                    new: {				3.新增顯示條件 new, 利用$concat可以串接字串, 目標是 Mark spend 200
+                        $concat: ["$name", " spend ", {$toString: "$amount"}]	所以內容是{"$name",spend,{$toString:"$amount"}}
+                    },								*在這邊使用toString是因為concat只吃String參數 所以要把數字轉成字串
+                    flag: {				4.新增顯示條件flag, 利用$cond去使用if條件式 
+                        $cond: {
+                            if: {$gt: ["$amount", 200]},  gt位置寫條件 a 大於 b > amount 大於兩百
+                            then: "big",		  flag顯示big
+                            else: "small"		  不滿足就顯示small
+                        }
+                    }
+                }
+        }
+    ]
+)
+
+顯示結果:
+{ "_id" : ObjectId("628c44c0528847bfecff3279"), "name" : "JACK", "new" : "Jack spend 500", "flag" : "big" }
+{ "_id" : ObjectId("628c44c0528847bfecff327a"), "name" : "JACK", "new" : "Jack spend 250", "flag" : "big" }
+{ "_id" : ObjectId("628c44c0528847bfecff327b"), "name" : "MARK", "new" : "Mark spend 200", "flag" : "small" }
+
+db.test.aggregate(
+    [
+        {
+            $project:{
+                _id: 0,					id不顯示
+                name: 1,				name顯示
+                numHobby: {
+                    $size: "$hobby"			size計算hobby的數量 放到numHobby變數中
+                },
+                hobby: {				
+                    $slice: ["$hobby", 0, 3]		slice去取得切片 針對hobby去切 第一個參數決定從第幾個開始 , 從0開始,取得三個元素
+                }					$slice: ["$hobby", 0, 1] 從0開始,取一個元素 
+            }						$slice: ["$hobby", 0, 2] 從0開始,取兩個元素
+        }
+    ]
+)
+
+
+顯示結果:
+{ "name" : "Jack", "numHobby" : 3, "hobby" : [ "Reading", "Cooking", "Running" ] }
+{ "name" : "Mark", "numHobby" : 2, "hobby" : [ "Cooking", "Singing" ] }
+
+==========================================================
+
+Bucket操作用法
+
+db.movie.aggregate(
+    [
+        {
+            $bucket:{							依據甚麼去分類 
+                groupBy: "$year",
+                boundaries: [1990, 1995, 2000, 2005, 2010, 2015, 2020],	邊界依照甚麼去分類 第一個區間包含1990但不包含1995 依此類推
+                output: {
+                    numMovies: {$sum: 1},				輸出結果 依照邊界去找符合類型的資料 $sum起來之後 丟到numMovies變數內
+                    avgScore: {$avg: "$imdb_score"}				 依照邊界內的資料 依照imdb_score去avg 丟到avgScore 內
+                }
+            }
+        }
+    ]
+)
+
+
+顯示結果:
+{ "_id" : 1995, "numMovies" : 3, "avgScore" : 6.2 }                1995<= x < 2000
+{ "_id" : 2000, "numMovies" : 3, "avgScore" : 6.766666666666667 }  2000<= x < 2005
+{ "_id" : 2005, "numMovies" : 27, "avgScore" : 6.781481481481482 } 2005<= x < 2010
+{ "_id" : 2010, "numMovies" : 50, "avgScore" : 7.2 }		   2010<= x < 2015
+{ "_id" : 2015, "numMovies" : 17, "avgScore" : 7.029411764705882 } 2015<= x < 2020
+
+
+==========================================================
+Skip 和 Limit
+
+db.movie.aggregate(
+    [
+        {
+            $group: {
+                _id: "$director_name", 		依照director_name分組
+                avg_imdb:{
+                    $avg: "$imdb_score"		依照imdb_score取得平均分 丟到avg_imdb
+                }
+            }
+        },
+        {
+            $sort: {				依照avg_imdb排序 由大到小
+                avg_imdb: -1
+            }
+        },
+        {
+            $skip: 20				跳過前20筆資料
+        },
+        {
+            $limit: 10				每次資料回傳10筆資料
+        }
+    ]
+)
+
+輸出結果:	就是第21-30筆資料
+{ "_id" : "Sam Mendes", "avg_imdb" : 7.3 }
+{ "_id" : "Duncan Jones", "avg_imdb" : 7.3 }
+{ "_id" : "Dan Scanlon", "avg_imdb" : 7.3 }
+{ "_id" : "Mark Andrews", "avg_imdb" : 7.2 }
+{ "_id" : "Shane Black", "avg_imdb" : 7.2 }
+{ "_id" : "James Wan", "avg_imdb" : 7.2 }
+{ "_id" : "Zack Snyder", "avg_imdb" : 7.050000000000001 }
+{ "_id" : "David Yates", "avg_imdb" : 7.05 }
+{ "_id" : "Colin Trevorrow", "avg_imdb" : 7 }
+{ "_id" : "Robert Stromberg", "avg_imdb" : 7 }  
+
+小提醒: skip永遠建議寫在limit前面 如果先設定limit 10 skip 10 會回傳空值 
+	因為你跳過前10筆 然後只顯示10筆 就會回傳空值
+	而不是先跳過10筆 顯示第11-20筆資料
+
+
+==========================================================
+
+Out 輸出成新的collection
+
+db.movie.aggregate(
+    [
+        {
+            $group: {
+                _id: "$director_name",
+                avg_imdb:{
+                    $avg: "$imdb_score"
+                }
+            }
+        },
+        {
+            $sort: {
+                avg_imdb: -1
+            }
+        },
+        {
+            $out: "new_movie" 		把輸出成新的一個collection new movie
+        }
+    ]
+)
+
+
+輸出結果: 
+
+db.new_movie.find()	會在你輸出的new_movie collection中 找到資料
+
+{ "_id" : "Christopher Nolan", "avg_imdb" : 8.725 }
+{ "_id" : "Lee Unkrich", "avg_imdb" : 8.3 }
+{ "_id" : "Pete Docter", "avg_imdb" : 8.3 }
+...
+
+
+==========================================================
+
+geoNear  地理位置距離搜尋 搭配aggergate
+
+db.restaurant.aggregate(
+    [
+        {
+            $geoNear:{					
+                near:{					當前想搜尋的位置
+                    type:"Point",
+                    coordinates: [-73.8701, 40.7523]
+                },
+		num:10					前十個資料
+                maxDistance: 100000,			最大距離不能超過這個距離(M)
+                distanceField: "distance"		因為geoNear會同時計算距離輸入點的距離 輸入distance使用distance做排序
+            }
+        }
+    ]
+)
+
+
+輸出結果:
+
+{ "_id" : ObjectId("55cba2476c522cafdb0546c4"), "location" : { "coordinates" : [ -73.86932469999999, 40.7521988 ], "type" : "Point" }, "name" : "La Nortena Express Restaurant", "distance" : 66.34327958455683 }
+{ "_id" : ObjectId("55cba2476c522cafdb0547a3"), "location" : { "coordinates" : [ -73.8687364, 40.75229300000001 ], "type" : "Point" }, "name" : "Charo Restaurant", "distance" : 114.99277352359852 }
+{ "_id" : ObjectId("55cba2476c522cafdb053b75"), "location" : { "coordinates" : [ -73.8700163, 40.7504734 ], "type" : "Point" }, "name" : "Jardin De China Rest", "distance" : 203.4574743865638 }
+....
+
+
+
+db.restaurant.aggregate(
+    [
+        {
+            $geoNear:{
+                near:{
+                    type:"Point",
+                    coordinates: [-73.8701, 40.7523]
+                },
+                maxDistance: 100000,
+                distanceField: "distance"
+            }
+        },
+        {
+            $project:{					透過上面的project去決定哪些要輸出
+                _id:0,					id不輸出
+                name:1,					name輸出
+                distance:1				distnace輸出
+            }
+        }
+    ]
+)
+
+輸出結果:
+{ "name" : "La Nortena Express Restaurant", "distance" : 66.34327958455683 }
+{ "name" : "Charo Restaurant", "distance" : 114.99277352359852 }
+{ "name" : "Jardin De China Rest", "distance" : 203.4574743865638 }
+...
+
+
+==========================================================
+
+Authentication 認證 > 用戶是誰
+
+Authorization  授權 > 用戶能幹甚麼
+
+創建用戶權限 *Mongodb允許在本地端創立用戶 遠端不行
+
+db.createUser(						createUser()方法
+    {
+        user : "admin",					帳號名稱
+        pwd : "admin",					帳號密碼
+        roles: [ 
+            {
+                role : "readWrite", db : "admin"},	role:讀寫權限,對於admin資料庫可以做讀寫
+            {
+                role:  "userAdminAnyDatabase",		role:之後會解釋
+                db : "admin"
+            }
+        ]
+    }
+)
+
+==========================================================
+
+登入
+
+use admin
+
+db.auth("root123","password") 
+
+>返回1
+
+就登入成功了 show dbs就會有東西跳出來
+
+==========================================================
+
+登出
+
+db.logout()
+
+>返回{ "ok" : 1 } 就是成功
+
+
+用戶權限role 設定  可見官方文件 https://www.mongodb.com/docs/manual/reference/built-in-roles/
+
+==========================================================
+
+建立用戶
+db.createUser(						
+    {
+        user : "admin",					
+        pwd : "admin",					
+        roles: [ 
+            {
+                role : "readWrite", db : "admin"},	role:讀寫權限,對於admin資料庫可以做甚麼動作
+							     read : 只能讀 readWrite : 能讀寫
+            {
+                role:  "userAdminAnyDatabase",		role:用戶權限,對於所有資料庫都有的權限
+                db : "admin"				     在哪個資料庫 如果是在admin就是對整個資料庫都適用
+            }						     
+        ]						     
+    }
+)
+
+db.createUser(
+    {
+        user : "user1",
+        pwd : "user1",
+        roles: [ 
+            {
+                role : "readWrite", db : "test"},	設定用戶權限有讀寫test資料庫的權限
+        ]
+    }
+)
+
+db.createUser(
+    {
+        user : "user2",
+        pwd : "user2",
+        roles: [ 
+            {
+                role : "read", db : "test"},		設定用戶權限有讀test資料庫的權限
+        ]
+    }
+)
+
+==========================================================
+
+更新用戶
+
+db.updateUser(
+    "user1",{						更新的用戶名字
+	pwd:"sss"					也可以更新密碼
+        roles: [					此處新的roles會完全覆蓋之前的roles 之前的roles會被掉
+            {
+                role:"readWrite",db: "test"		
+            },
+            {
+                role: "userAdmin",db: "test"
+            }
+        ]
+    }
+)
+
+==========================================================
+
+刪除用戶
+	- db.dropUser("user2")		刪除user2用戶
+
+==========================================================
+
+獲得所有用戶
+	- db.getUsers()
+	- db.getUser("user1")		獲得user1的用戶詳細資訊
+
+** 登出必須要在相對應資料庫登出，假設妳重複登入，登出一次之後只會登出該資料庫下的User，並不會同時登出全部user
+   假設說 > 1. 我先在admin登入admin  
+	    2. use test 在test登入用戶 
+	    3. 在test資料庫輸入 db.logout()
+	    4. 此時輸入show dbs 一樣可以讀取到全部的dbs (因為我只登出user1 卻沒有登出admin)
+	    5. 需移至admin 再次登出才會登出相對應資料庫的用戶
+
+role:用戶權限,對於admin資料庫的權限	見官方文檔https://www.mongodb.com/docs/manual/reference/built-in-roles/
+
+	admin: 數據庫管理的權限，可以對數據做提取，增加index，讀取資料等等，但不能加入新用戶，不能插入數據及刪除
+	owner: 最高權限，可以做全部的操作，admin+userAdmin+readWrite
+	userAdmin: 可以對用戶做管理，可以去創建用戶，設置用戶權限等
+	root: 超級權限 可以有readWriteAnyDatabase、dbAdminAnyDatabase....等權限
+
+	readAnyDatabase: 可以讀取所有資料庫
+	readWriteAnyDatabase: 可以讀寫所有資料庫
+	userAdminAnyDatabase: 賦予權限，可以管理所有Database的userAdmin
+	dbAdminAnyDatabase: 賦予權限，可以有dbadmin的權限
+
+
+
+
+
+
+

@@ -1,0 +1,404 @@
+docker 基本操作
+
+docker version > 看docker 的版本
+
+docker login > 登入 docker hub
+
+docker system prune -f > 可以清除所有已經停止的container
+
+docker system prune -a > 刪除所有container 與image 包含正在執行的
+
+docker info > 看當前環境的基本狀態,包含多少container,多少在執行,多少是停止的
+
+docker > 可以看到docker 所有的指令及用法,如果要操作imager,就是docker image
+
+docker container --help > 可以看到cotainer 所有的指令
+
+docker cotainer ps > 顯示目前正在執行的container 
+
+docker container ps -a > 顯示目前正在執行的container 包含停止的
+
+docker image ls > 顯示目前正在執行的image 列表
+
+docker image rm hello-world > 移除hello-world image
+
+
+============================================================================
+
+docker container 操作指令
+
+
+docker container run -d nginx > 執行一個container ,是nginx的container,-d > 使用detached 模式執行
+
+docker container run -d -p 80:80 nginx > 執行一個container -p : 把port發佈到主機上
+
+docker container run -it ubuntu sh > -it > 使用交互模式下執行container
+
+docker container run --rm -it ipinfo ipinfo 8.8.8.8 > --rm可以自動刪除使用完的容器,ipinfo 8.8.8.8 為CMD []為空的時候,可以自動輸入指令讓CMD執行
+
+
+*********** - it 可以直接進入container 中的cmd 可以設定一些文檔等 *************
+
+docker run nginx > 直接啟動nginx container 
+
+docker container run -p 80:80 nginx > 
+
+docker container ps > 查看目前執行的container 相當於ls
+
+docker container ls > 列舉所有的 container 
+
+docker container ls -a > 查看目前所有的container 包含停止的container
+
+docker container ls -aq > 查看目前所有的container 只顯示ID
+
+docker container top a00 > 看目前正在運行且名為 a00 的container 的詳細資訊
+
+********stop*********
+
+docker container stop a00 > 停止ID 為 a00的 container
+
+docker container stop a0 cf 12 d0 > 停止ID為a0,cf,12,d0的container 
+
+docker container stop $(docker container ps -aq) >  停止docker container ps -aq找到的所有container 
+
+docker container stop kind_vaughan > 停止NAME(在ls列表最後的NAME,而不是nginx) 的container 
+
+***** rm (不能刪除正在運行的container,除非強制刪除)*************
+
+docker container rm a00 > 刪除ID 為a00的 container 
+
+docker container rm a00 -f > 強制刪除ID為a00的container
+
+docker container rm $(docker container ps -aq) > 刪除docker container ps -aq找到的所有container 
+
+docker rm a00 > 刪除ID 為a00的 container (建議使用 docker container 才不會搞錯)
+
+********commit*********
+
+docker container commit 884 ucmd2001/nginx  > 將現在的884 container,包裝成名為ucmd2001/nginx 的image
+
+**** 可以在it 模式下更改這個container, 增加資料或是執行檔案 ****
+**** 可以在 docker container run -it ucmd2001/python3-demo python3 hello.py 直接執行要執行的python檔案 ****
+
+
+============================================================================
+
+docker attched detached 模式
+
+docker attach b2a > attach 到b2a這個container,看到這個container中的log
+
+****如果在attach中使用ctrl+c 會把運行中的container 關掉
+
+
+****detached 模式
+
+docker run -d -p 80:80 nginx  > 使用detached 模式創建container,以免attch模式中把container關閉
+
+docker container logs d02 > 查看d02 container中的log
+
+docker container logs -f do2 >動態的察看d02 container 的log
+
+
+
+============================================================================
+
+docker image 操作指令
+
+docker image ls > 查看現有image 
+
+docker image rm a00 > 刪除現有image (需要container已經刪除才能刪除，不然會衝突)
+
+docker image pull nginx > 下載官方上Docker的nginx image
+
+docker image pull nginx:1.20.0 > 下載官方上指定版本的 image
+
+docker image pull quay.io/bitnami/nginx > 下載人家做好的,放在非官方地點的docker image
+
+docker image save nginx:1.20.0 -o nginx.image > 將image包成一個image,方便其他人pull 
+						-o 代表output 
+						:後代表版本
+
+docker image load -i .\ngnix.image > 加載人家做好的image
+
+docker image image build -t hello . >  以當前資料夾下的Docker file進行Image 創建
+				      -t > tage name 為 hello
+				      . > 當前資料夾
+docker image image bulid -t ucmd2001/hello:1.0.0 . >以當前資料夾下的Docker file進行Image 創建
+						    依照docker hub帳戶名稱創立
+
+docker image build -f Dockerfile.bad -t ipinfo-bad . > 在當前資料夾下創立ipinfo-bad 的image
+						     -f : 指定檔案為Dockerfile.bad
+
+docker image tag hello ucmd2001/hello:1.0 > 給hello 這個image 賦予一個tag 為ucmd2001/hello:1.0
+
+docker login > 登入 docker hub
+
+docker image push ucmd2001/hello:1.0 > push docker image到你剛剛登入的帳號內 
+					tag為 hello
+					1.0為版本號
+
+docker image pull ucmd2001/hello:1.0 > 將網路上的image 拉下來到電腦內
+
+docker image history hello > 看hello這個image 的歷史紀錄,可以看到各種分層
+
+docker image prune -a > 刪除目前沒有使用到的所有image
+
+
+============================================================================
+
+docker file 操作指令
+
+1. Dockerfile 第一步需要選擇image 做為執行環境
+
+	FROM  nginx:1.21.0 > 選擇nginx做為執行環境執行
+
+2. RUN 指令分開打,會比打在一起還要大,所以建議放在同一個RUN裡面 (見Dockerfile完全指南 > 34集)
+
+3.COPY 跟 ADD 建議依照檔案類型進行處理, 需要自動解壓縮 > ADD
+					單純文件 > COPY
+
+4.ENV 及 ARG 創建版本號時 > ARG不會存放在環境變量,只會在創建的時候使用到,ARG可以在建置的時候
+			
+			    透過 docker image build -f Dockerfile.arg -t ipinfo-arg-2.0.0 --build-arg VERSION=2.0.0 .
+		
+			    動態的修改版本,不用更改Dockerfile內的內容,可以依照需求進行更改			    
+
+		            ENV會保存環境變量,version 會留在環境變量裡面, it模式下輸入env可以查看 (見Dokcerfile 35集)
+
+5.CMD指令如果要執行,必須放在最後面,不然會被其他的指令覆蓋過去,就會自動關閉
+
+	EX: RUN apt-get update && \ ...
+	    CMD ["ipinfo"]  > 這樣才會執行
+
+6.ENTRYPOINT 所指定的指令一定會被執行,通常都會跟CMD 一起使用, CMD指定參數,ENTRYPOINT指定指令
+
+	EX: 如果使用 ENTRYPOINT["echo", "hello docker"] 後
+	    再使用 docker container run --rm -it demo-entrypoint echo"hello world" 
+	    會顯示 hello docker echo hello world 
+	    會這樣是因為 entrypoint是指令,所以當你輸入 echo hello world 變成參數傳給了entrypoint 中的echo被執行
+
+  聯合使用的時候:
+	EX: FROM ubuntu:20.04
+	    ENTRYPOINT [ "echo" ]
+	    CMD []
+	    輸入docker container run --rm -it demo-both 可以傳入你想要執行的指令給cmd 然後被entrypoint的echo執行
+
+7.快取會在重新執行後直接存取,如果在前面的指令中有任一一行沒有使用到Cache,則後面的都沒辦法使用Cache
+
+  如果需要使用非Cache的,經常改變的內容,盡量放到後面
+
+  這樣在使用Cache上可以更加的方便,提高建構Dockerfile上更加的快速
+
+8. .dockerignore 可以忽略指定文件,只用到使用到的文件,也可以保護有密碼等機密檔案的文件 
+
+9.多階段構建可以大幅度降低所需空間量
+
+	EX: 在編譯完所有的C檔之後,就不需要一個完整的GCC環境,因為在運行的時候就不需要這麼多程式庫,只需要alpine的檔案即可
+	    FROM gcc:9.4 AS builder  > 在這邊設成一個變數
+	    ...
+	    FROM alpine:3.13.5 	> 使用壓縮板的C環境
+
+	    COPY --from=builder /src/hello /src/hello  > 在這邊使用之前的變數
+
+10.建議使用非Root用戶進行Docker操作,因為在使用上避免造成資安上的疑慮,或是控到不該控的東西
+
+	EX: RUN pip install flask && \
+	    	groupadd -r flask && useradd -r -g flask flask && \
+	    	mkdir /src && \
+	    	chown -R flask:flask /src
+
+	    	增加一個flask用戶與group,用戶是建立在Docker運行的環境中，可以用 exec -it 進去看
+
+	    USER flask
+    
+                使用剛剛創建的user
+
+	    ...
+
+11.Data valume  永久化存儲檔案 > 使用 VOLUME,會存在本機端,所以不會因為Docker container/image rm而刪除
+
+	見45集
+
+
+===============================================
+
+Docker volume 
+
+docker volume ls >查看 volume的列表
+
+docker volume instpect /var/lib/docker/volumes/f065128c25a435ab7c7385a31ddce5cfa0746e9e526b8d9de74db39fc4c06f6c/_data > 可以去看這個volume的詳細資料
+
+docker container run -d -v cron-data:/app my-cron > -v就是volume 後面接名字 cron-data , :/ 接文件夾路徑 ,volume 名稱是my-cron
+
+docker volume prune -f > 強制清除所有volume
+
+* 這時候可以sudo cat /var/lib/docker/volumes/f065128c25a435ab7c7385a31ddce5cfa0746e9e526b8d9de74db39fc4c06f6c/_data 看一下存在地端的輸出內容
+
+docker volume Driver 
+
+Docker volume可以支持多種Driver ,默認的Driver 都是local
+
+
+
+
+data volume & mysql 實作
+
+1.先從 https://github.com/docker-library/mysql/blob/master/5.7/Dockerfile.debian 複製Dockerfile
+
+2.用這個Docker file 創立image 
+
+3.docker container run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d -v mysql-data:/var/lib/mysql mysql:5.7
+	使用mysql語法,設定密碼為my-secret-pw 
+ 	-v:創立volume,接路徑跟名稱 及使用哪一個image (mysql 5.7)
+
+4.docker volume inspect mysql-data 可以看一下volume路徑
+
+5.docker container exec -it 022 sh 透過-it 進入mysql container的 Shell
+
+6.mysql> show databases;
+  mysql> create database demo;
+  mysql> exit
+
+7.ls  /var/lib/docker/volumes/mysql-data/_data 
+
+  會發現剛剛創建的demo 資料庫已經被建立
+
+8.如果之後刪除container,重新建立 再次開啟container 的sh之後,這個demo還是會顯示
+
+
+===============================================
+
+Bind Mount 
+
+Bind Mount 可以直接在建立docker container 的時候直接指定路徑 
+
+docker container run -d -v $(pwd):/app my-cron 
+	$(pwd) : 直接在當前目錄建立 volume
+
+這時候輸入 docker volume會看不到 volume存在 ,因為我們把目前資料夾當作volume來儲存
+
+Bind Mount 也能直接把運行環境,當作volume使用
+
+1.docker image pull gcc
+
+2. docker container run -d -v $(pwd):/root gcc:9.4 > 讓gcc9.4當作我們的volume
+
+   ** 這個指令會中斷 ,執行到CMD的指令就會停下
+
+   docker container run -it -v $(pwd):/root gcc:9.4 > 藉由交互模式讓它不會停止
+
+3.輸入 gcc -o hello hello.c > ./hello docker  > exit
+
+   退出之後就可以發現現在的資料夾中多了一個hello 檔,這是因為先前的指令把volume存在當前資料夾的關係,所以有輸出檔案都匯存到當前資料夾
+
+
+Bind Mount  & vs code container
+
+可以透過remote development插件建立一個虛擬機,然後在其中使用vscode 進行編輯
+
+1.先下載 remote development 
+
+2.vs code 旁邊會有一個電腦形狀的icon 
+
+3.選擇Open folder 
+
+4.選擇好之後會需要選擇執行的環境
+
+5.選擇好後按OK就會開始建立環境 ,這時候看 log就可以看到目前正在運行的工作內容
+
+6.好了之後就可以新增Terminal 進行上面剛剛的操作
+
+*這個套件等於就是docker container 的GUI 只是 base在 vscode上執行 .image 基於你剛剛上述選的環境 ,可以在.devcontainer/Dockerfile中查看內容
+
+=================================================
+
+Docker 網路 
+
+當瀏覽器輸入一個網址的時候 (ex: www.google.com) ,背後發生甚麼事情
+
+1.進行域名解析 
+	1.查找瀏覽器緩存
+	2. 查找系統緩存
+	3.查找路由器緩存
+	4.查找 ISP DNS 緩存
+	5.查找根域名伺服器供應商
+
+2.當域名解析成功，找到相關 IP 地址，接下來到Web伺服器處理請求
+	MVC的處理過程：
+		每一個用户輸入的請求
+		首先被路由接收，再交由控制器決定用哪個模型來進行處理
+		將用户輸入的指令數據傳給模型進行
+		進行業務邏輯判斷，按需要向數據庫存取
+		根據業務邏輯選擇視圖
+		控制器用業務邏輯相應的數據填入視圖模型
+		將處理好的視圖模版的HTML交回控制器
+		生成 HTML 字符串返給瀏覽器處理，並通過顯示頁面呈現給用户。
+
+3.最後伺服器將處理好的HTML，交給瀏覽器處理，最後顯示在你的屏幕上
+	載入，解析，渲染
+
+------------------------------------------------------
+
+Docker bridge  
+
+所有的docker container 都會連接到 docker0 這個網路上 ,類似於Hub或是Route的概念
+
+docker container 可以同時連線很多網路/bridge 類似於你跟很多route相接的感覺
+
+docker container instpect d45 >  查看這個container的詳細訊息
+
+docker network ls > 查看目前docker 提供了那些network連接放式
+
+docker network inspect bridge > 查看bridge的詳細訊息
+
+docker network inspect d159 > 查看d159這個network的網路詳細資訊
+
+docker network create -d bridge mybridge > 創建一個名為mybridge的 bridge, -d : drive,依照誰來創建
+
+docker network create -d bridge --gateway 172.200.0.1 --subnet 172.200.0.0/16 demo > 創一個名demp的 bridge
+											--gateway 172.200.0.1 : 設定gateway
+											--subnet 172.200.0.0/16 : 設定subnet 與遮罩
+
+docker container inspect --format '{{.NetworkSettings.IPAddress}}' box1 > 只查看 box1的.NetworkSettings.IPAddress訊息
+
+docker container run -d --rm --name box3 --network mybridge busybox /bin/sh -c "while true; do sleep 3600; done" >
+
+	建立一個依照mybridge 這個Bridge建立的container,
+		--network: 接要使用的bridge
+		--name: 命名
+		--d: 背景執行
+		/bin/sh -c "while true; do sleep 3600; done" : 透過sh 執行命令
+
+docker network connect bridge box3 > 讓box3與bridge相連
+
+docker network disconnect bridge box3 > 讓box3與bridge斷連
+
+docker container exec -it box4 ping box3 > 從box4 ping box3
+
+docker container exec -it box2 ping 172.17.0.2  > 也可以輸入ip地址進行ping 
+
+** 默認沒辦法輸入兩個名稱,除了自訂義的才可以
+
+brctl show > 可以看到 Linux Brige的狀態
+
+ip route > 查看電腦對外的連線狀態,也能查看container 的對外連線狀態
+
+	輸出:
+		default via 10.0.2.2 dev enp0s3 proto dhcp metric 100 
+		10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 metric 100 
+		169.254.0.0/16 dev enp0s3 scope link metric 1000 
+		172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 
+
+sudo iptables --list -t nat  > 查看ip轉發規則
+
+	輸出:
+		Chain PREROUTING (policy ACCEPT)
+		target     prot opt source               destination
+		DOCKER     all  --  anywhere             anywhere             ADDRTYPE match dst-type LOCAL
+
+		Chain INPUT (policy ACCEPT)
+		target     prot opt source               destination
+		...
+
+
+------------------------------------------------------
